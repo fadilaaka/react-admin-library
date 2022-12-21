@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -31,6 +31,12 @@ const Login = () => {
       navigate("/login");
     }
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("user-info")) {
+      navigate("/dashboard");
+    }
+  });
   return (
     <div className="container bg-slate-200 w-80 mx-auto my-10 p-8">
       <form>

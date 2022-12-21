@@ -51,14 +51,14 @@ const EditBuku = () => {
   const submitData = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", judul);
-    formData.append("author", penulis);
-    formData.append("publisher", penerbit);
-    formData.append("publishDate", tanggal);
-    formData.append("isbn", isbn);
-    formData.append("pageCount", jumlah);
-    formData.append("description", description);
-    formData.append("idKategori", idKategori);
+    formData.append("updateTitle", judul);
+    formData.append("updateAuthor", penulis);
+    formData.append("updatePublisher", penerbit);
+    formData.append("updatePublishDate", tanggal);
+    formData.append("updateIsbn", isbn);
+    formData.append("updatePageCount", jumlah);
+    formData.append("updateDescription", description);
+    formData.append("updateIdKategori", idKategori);
 
     axios
       .post(`${url}/v1/api/edit-buku/${idBuku}`, formData)
@@ -73,7 +73,7 @@ const EditBuku = () => {
     <div className="flex">
       <Sidebar />
       <div className="w-full px-6 py-4 mt-6 mx-auto overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
-        <form onSubmit={(e) => submitData(e)}>
+        <form onSubmit={(e) => submitData(e)} encType="multipart/form-data">
           <div className="relative z-0 mb-6 w-full group">
             <input
               type="text"

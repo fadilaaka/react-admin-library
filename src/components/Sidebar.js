@@ -8,9 +8,14 @@ import {
   FaClipboardCheck,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    sessionStorage.clear();
+    navigate("/login");
+  };
   return (
     <div className="flex flex-col h-screen p-3 bg-white shadow w-60">
       <div className="space-y-3">
@@ -75,7 +80,7 @@ const Sidebar = () => {
             </li>
             <li className="rounded-sm">
               <button
-                onClick={() => {}}
+                onClick={() => logout()}
                 className="flex items-center p-2 space-x-3 rounded-md"
               >
                 <FaSignOutAlt size={25} />

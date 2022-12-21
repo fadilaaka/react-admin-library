@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Book from "./pages/Book";
 import Dashboard from "./pages/Dashboard";
 import DetailBuku from "./pages/DetailBuku";
@@ -8,14 +8,13 @@ import Login from "./pages/Login";
 import TambahBuku from "./pages/TambahBuku";
 
 const App = () => {
-  const [userLogged, setUserLogged] = useState(
-    JSON.parse(sessionStorage.getItem("user-info"))
-  );
+  const navigate = useNavigate();
+
   useEffect(() => {
-    sessionStorage.setItem("user-info", JSON.stringify(userLogged));
-  }, [userLogged]);
-  const logIn = () => setUserLogged(true);
-  const logOut = () => setUserLogged(false);
+    if (!sessionStorage.getItem("user-info")) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <Routes>
