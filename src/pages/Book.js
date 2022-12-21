@@ -6,11 +6,13 @@ import { FaListUl, FaPenSquare, FaTrashAlt } from "react-icons/fa";
 
 const Book = () => {
   const [dataBuku, setDataBuku] = useState([]);
+  const [deleted, setDeleted] = useState(false);
   const url = "http://localhost:5000";
 
   useEffect(() => {
     getApiViewBook();
-  }, [dataBuku]);
+    setDeleted(false);
+  }, [deleted]);
 
   const getApiViewBook = async () => {
     const result = await axios.get(`${url}/v1/api/book`);
@@ -23,6 +25,7 @@ const Book = () => {
       .post(`${url}/v1/api/delete-buku/${idBuku}`)
       .then((res) => {
         console.log(res);
+        setDeleted(true);
       })
       .catch((err) => console.log(err));
   };

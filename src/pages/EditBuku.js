@@ -14,7 +14,8 @@ const EditBuku = () => {
   const [isbn, setIsbn] = useState("");
   const [jumlah, setJumlah] = useState("");
   const [description, setDescription] = useState("");
-  const [idKategori, setIdKategori] = useState("");
+  const [idKategori, setIdKategori] = useState();
+  const [titleKategori, setTitleKategori] = useState();
   const [file, setFile] = useState();
 
   const url = "http://localhost:5000";
@@ -34,7 +35,8 @@ const EditBuku = () => {
     setIsbn(res.data.book.isbn);
     setJumlah(res.data.book.pageCount);
     setDescription(res.data.book.description);
-    setIdKategori(res.data.book.idKategori.title);
+    setIdKategori(res.data.book.idKategori._id);
+    setTitleKategori(res.data.book.idKategori.title);
   };
 
   const getAPIJenisKategori = async () => {
@@ -50,18 +52,27 @@ const EditBuku = () => {
 
   const submitData = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("updateTitle", judul);
-    formData.append("updateAuthor", penulis);
-    formData.append("updatePublisher", penerbit);
-    formData.append("updatePublishDate", tanggal);
-    formData.append("updateIsbn", isbn);
-    formData.append("updatePageCount", jumlah);
-    formData.append("updateDescription", description);
-    formData.append("updateIdKategori", idKategori);
+    // const formData = new FormData();
+    // formData.append("updateTitle", judul);
+    // formData.append("updateAuthor", penulis);
+    // formData.append("updatePublisher", penerbit);
+    // formData.append("updatePublishDate", tanggal);
+    // formData.append("updateIsbn", isbn);
+    // formData.append("updatePageCount", jumlah);
+    // formData.append("updateDescription", description);
+    // formData.append("updateIdKategori", idKategori);
 
     axios
-      .post(`${url}/v1/api/edit-buku/${idBuku}`, formData)
+      .post(`${url}/v1/api/edit-buku/${idBuku}`, {
+        updateTitle: judul,
+        updateAuthor: penulis,
+        updatePublisher: penerbit,
+        updatePublishDate: tanggal,
+        updateIsbn: isbn,
+        updatePageCount: jumlah,
+        updateDescription: description,
+        updateIdKategori: idKategori,
+      })
       .then((res) => {
         console.log(res);
       })
@@ -200,7 +211,7 @@ const EditBuku = () => {
               value={idKategori}
               onChange={(e) => setIdKategori(e.target.value)}
             >
-              <option value={idKategori}>
+              <option value={titleKategori}>
                 {detailBuku && detailBuku.idKategori.title}
               </option>
               <option value="">--- Kategori Buku ---</option>
