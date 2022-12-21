@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import { FaListUl, FaPenSquare, FaTrashAlt } from "react-icons/fa";
+import Loading from "../components/Loading";
 
 const Book = () => {
   const [dataBuku, setDataBuku] = useState([]);
   const [deleted, setDeleted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const url = "http://localhost:5000";
 
   useEffect(() => {
+    setLoading(true);
     getApiViewBook();
     setDeleted(false);
   }, [deleted]);
@@ -18,6 +21,7 @@ const Book = () => {
     const result = await axios.get(`${url}/v1/api/book`);
     console.log(result);
     setDataBuku(result.data);
+    setLoading(false);
   };
 
   const deleteBook = (idBuku) => {
@@ -115,7 +119,10 @@ const Book = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {dataBuku &&
+                    {loading ? (
+                      <Loading />
+                    ) : (
+                      dataBuku &&
                       dataBuku.map((item, index) => (
                         <tr key={index}>
                           <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
@@ -159,7 +166,8 @@ const Book = () => {
                             </button>
                           </td>
                         </tr>
-                      ))}
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

@@ -13,6 +13,7 @@ const TambahBuku = () => {
   const [description, setDescription] = useState("");
   const [idKategori, setIdKategori] = useState("");
   const [file, setFile] = useState();
+  const [status, setStatus] = useState();
 
   const url = "http://localhost:5000";
 
@@ -48,6 +49,7 @@ const TambahBuku = () => {
       .post(`${url}/v1/api/add-buku`, formData)
       .then((res) => {
         console.log(res);
+        setStatus(res.status);
       })
       .catch((err) => {
         console.log(err);
@@ -207,6 +209,16 @@ const TambahBuku = () => {
             Submit
           </button>
         </form>
+        {status === 201 ? (
+          <div
+            className="mx-auto fixed w-[25%] h-[10%] inset-0 flex items-center p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+            role="alert"
+          >
+            <span className="font-medium">Success tambah buku</span>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
