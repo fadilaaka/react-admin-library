@@ -1,8 +1,23 @@
-import React from "react";
-import { FaAddressBook, FaBook, FaBookOpen, FaClipboardCheck, FaRegCalendarAlt } from "react-icons/fa";
+import React, {useState, useEffect } from "react";
+import { FaAddressBook, FaBook, FaBookOpen, FaBookReader, FaClipboardCheck, FaRegCalendarAlt } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
+import axios from "axios";
 
 const Dashboard = () => {
+
+  const [jumlah, setJumlah] = useState();
+  const url = "http://localhost:5000";
+
+  useEffect(() => {
+    getApiViewDashboard();
+  }, []);
+
+  const getApiViewDashboard = async () => {
+    const result = await axios.get(`${url}/v1/api/dashboard`);
+    console.log(result);
+    setJumlah(result.data);
+  };
+
   return (
     <div className="flex bg-slate-800">
       <Sidebar />
@@ -14,7 +29,7 @@ const Dashboard = () => {
                 Jenis Buku
               </div>
               <div className="mt-1 text-3xl font-semibold text-gray-900">
-                450
+                {jumlah && jumlah.jenis}
               </div>
             </div>     
             <div className="right-section">
@@ -30,12 +45,12 @@ const Dashboard = () => {
                 Kategori Buku
               </div>
               <div className="mt-1 text-3xl font-semibold text-gray-900">
-                450
+                {jumlah && jumlah.kategori}
               </div>
             </div>     
             <div className="right-section">
               <div className="icon w-14 p-3.5 bg-slate-900 text-white rounded-full mr-3 float-right">
-                <FaBookOpen size={25} />
+                <FaBookReader size={25} />
               </div>
             </div>  
           </div>
@@ -46,7 +61,7 @@ const Dashboard = () => {
                 List Buku
               </div>
               <div className="mt-1 text-3xl font-semibold text-gray-900">
-                450
+                {jumlah && jumlah.book}
               </div>
             </div>     
             <div className="right-section">
@@ -62,7 +77,7 @@ const Dashboard = () => {
                 Anggota Perpustakaan
               </div>
               <div className="mt-1 text-3xl font-semibold text-gray-900">
-                450
+                {jumlah && jumlah.anggota}
               </div>
             </div>     
             <div className="right-section">
@@ -78,7 +93,7 @@ const Dashboard = () => {
                 Peminjaman
               </div>
               <div className="mt-1 text-3xl font-semibold text-gray-900">
-                450
+                {jumlah && jumlah.peminjaman}
               </div>
             </div>     
             <div className="right-section">
@@ -94,7 +109,7 @@ const Dashboard = () => {
                 Pengembalian
               </div>
               <div className="mt-1 text-3xl font-semibold text-gray-900">
-                450
+                {jumlah && jumlah.pengembalian}
               </div>
             </div>     
             <div className="right-section">
