@@ -7,7 +7,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const url = "http://localhost:5000";
+  // const url = "http://localhost:5000";
+  const url = "https://incredible-complete-soybean.glitch.me";
 
   const loginAkun = async (e) => {
     try {
