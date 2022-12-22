@@ -43,12 +43,12 @@ const Pengembalian = () => {
         <Sidebar />
             <div className="container mx-auto p-10">
 
-                <div className="title mx-12 flex text-white font-semibold border-b-2 pb-4 text-2xl">
+                <div className="title mx-2 flex text-white font-semibold border-b-2 pb-4 text-2xl">
                     <FaRegCalendarAlt />
                     <h3 className="ml-2">Pengembalian</h3>
                 </div>
 
-                <div className="relative w-1/4 mx-12 mt-8 mb-5">
+                <div className="relative w-1/4 mx-2 mt-8 mb-5">
                     <label htmlFor="hs-table-search" className="sr-only">
                         Search
                     </label>
@@ -73,7 +73,7 @@ const Pengembalian = () => {
                     </div>
                 </div>
 
-                <div class="container pt-3 pb-12 mx-auto px-4 md:px-6 lg:px-12">
+                <div class="container pt-3 pb-5 mx-auto px-4 md:px-6 lg:px-2">
                     <section class="mb-20 text-gray-800">
                     <div class="block rounded-lg shadow-lg bg-white">
                         <div class="flex flex-col">
@@ -81,7 +81,7 @@ const Pengembalian = () => {
                                 <div class="inline-block min-w-full sm:px-6 lg:px-8">
                                     <div class="overflow-hidden">
                                         <table class="min-w-full mb-0">
-                                            <thead class="border-b rounded-t-lg text-left">
+                                            <thead class="border-b rounded-t-lg text-left text-center">
                                                 <tr class="border-b bg-gray-50">
                                                     <th scope="col" class="rounded-tl-lg text-sm font-medium px-6 py-4">No</th>
                                                     <th scope="col" class="text-sm font-medium px-6 py-4">Tanggal Peminjaman</th>
@@ -97,22 +97,22 @@ const Pengembalian = () => {
                                             {detailPengembalian &&
                                             detailPengembalian.pengembalian.map((item, index) => (
                                                 <tr key={index} className="border-b-2">
-                                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
+                                                    <td className="px-6 py-4 text-sm text-center font-medium text-gray-800 whitespace-nowrap">
                                                         {index + 1}
                                                     </td>
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.tanggalPeminjaman.split("T")[0]}
                                                     </td>
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.tanggalPengembalian.split("T")[0]}
                                                     </td>
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.anggota.name}
                                                     </td>
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.book.title}
                                                     </td>
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.status}
                                                     </td>
                                                     {
@@ -127,7 +127,7 @@ const Pengembalian = () => {
                                                     </td>
                                                         )
                                                     }
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-right">
+                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-right">
                                                         <button
                                                             type="button"
                                                             className="text-white bg-green-700 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
@@ -147,7 +147,7 @@ const Pengembalian = () => {
                                                     </td>
                                                     {modalConfirm == true ? (
                                                     <div
-                                                    className="mx-auto fixed w-[30%] h-[15%] inset-0 items-center p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300"
+                                                    className="mx-auto fixed w-[30%] h-[15%] inset-0 text-center p-4 mb-4 text-sm text-gray-700 bg-gray-300 rounded-b-lg dark:bg-gray-700 dark:text-gray-300"
                                                     role="alert"
                                                 >
                                                     <span className="font-medium">Apakah Anda yakin ingin menghapus peminjaman ini?</span>
