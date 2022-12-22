@@ -4,27 +4,27 @@ import { FaCheck, FaTrashAlt, FaRegCalendarAlt } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Sidebar from "../components/Sidebar";
 
-const Peminjaman = () => {
-    const [detailPeminjaman, setDetailPeminjaman] = useState();
+const Pengembalian = () => {
+    const [detailPengembalian, setDetailPengembalian] = useState();
     const [deleted, setDeleted] = useState();
     const [modalConfirm, setModalConfirm] = useState(false); 
 
     const url = "http://localhost:5000";
 
     useEffect(() => {
-        getApiViewPeminjaman();
+        getApiViewPengembalian();
         setDeleted(false)
     }, [deleted]);
 
-    const getApiViewPeminjaman = async () => {
-        const result = await axios.get(`${url}/v1/api/peminjaman`);
+    const getApiViewPengembalian = async () => {
+        const result = await axios.get(`${url}/v1/api/pengembalian`);
         console.log(result);
-        setDetailPeminjaman(result.data);
+        setDetailPengembalian(result.data);
     };
 
-    const deletePeminjaman = (idPeminjaman) => {
+    const deletePengembalian = (idPengembalian) => {
         axios
-          .post(`${url}/v1/api/delete-peminjaman/${idPeminjaman}`)
+          .post(`${url}/v1/api/delete-pengembalian/${idPengembalian}`)
           .then((res) => {
             console.log(res);
             setDeleted(true);
@@ -33,7 +33,10 @@ const Peminjaman = () => {
           .catch((err) => console.log(err));
       };
 
-    console.log(detailPeminjaman);
+      const date = (tanggal) => {
+        return new Date(tanggal)
+      }
+    console.log(detailPengembalian);
 
     return (
         <div className="flex bg-slate-800">
@@ -42,7 +45,7 @@ const Peminjaman = () => {
 
                 <div className="title mx-12 flex text-white font-semibold border-b-2 pb-4 text-2xl">
                     <FaRegCalendarAlt />
-                    <h3 className="ml-2">Peminjaman</h3>
+                    <h3 className="ml-2">Pengembalian</h3>
                 </div>
 
                 <div className="relative w-1/4 mx-12 mt-8 mb-5">
@@ -86,12 +89,13 @@ const Peminjaman = () => {
                                                     <th scope="col" class="text-sm font-medium px-6 py-4">Nama</th>
                                                     <th scope="col" class="text-sm font-medium px-6 py-4">Buku</th>
                                                     <th scope="col" class="text-sm font-medium px-6 py-4">Status</th>
+                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Waktu Pengembalian</th>
                                                     <th scope="col" class="rounded-tr-lg text-sm font-medium px-6 py-4">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {detailPeminjaman &&
-                                            detailPeminjaman.peminjaman.map((item, index) => (
+                                            {detailPengembalian &&
+                                            detailPengembalian.pengembalian.map((item, index) => (
                                                 <tr key={index} className="border-b-2">
                                                     <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                                                         {index + 1}
@@ -111,6 +115,18 @@ const Peminjaman = () => {
                                                     <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.status}
                                                     </td>
+                                                    {
+                                                        item.waktuDikembalikan === null ? (
+                                                    <td class="text-sm text-center font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                        -----------
+                                                    </td>
+                                                        ) : (
+                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                        {item.waktuDikembalikan.split("T")[0]} {"/ "}
+                                                        {item.waktuDikembalikan.split("T")[1].split('.')[0]}
+                                                    </td>
+                                                        )
+                                                    }
                                                     <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-right">
                                                         <button
                                                             type="button"
@@ -138,7 +154,7 @@ const Peminjaman = () => {
                                                     <div class="my-3">
                                                         <button
                                                             type="button"
-                                                            onClick={() => deletePeminjaman(item._id)}
+                                                            onClick={() => deletePengembalian(item._id)}
                                                             className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                                                             Ya
                                                         </button>
@@ -158,8 +174,6 @@ const Peminjaman = () => {
                                             )}
                                             </tbody>
                                         </table>
-                                        
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -173,4 +187,4 @@ const Peminjaman = () => {
     );
 };
 
-export default Peminjaman;
+export default Pengembalian;
