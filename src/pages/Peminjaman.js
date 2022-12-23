@@ -5,24 +5,44 @@ import { ImCross } from "react-icons/im";
 import Sidebar from "../components/Sidebar";
 
 const Peminjaman = () => {
-  const [detailPeminjaman, setDetailPeminjaman] = useState();
+    const [detailPeminjaman, setDetailPeminjaman] = useState();
     const [deleted, setDeleted] = useState();
     const [modalConfirm, setModalConfirm] = useState(false); 
 
-  // const url = "http://localhost:5000";
-  const url = "https://incredible-complete-soybean.glitch.me";
+    const url = "http://localhost:5000";
+    // const url = "https://incredible-complete-soybean.glitch.me";
 
     useEffect(() => {
         getApiViewPeminjaman();
         setDeleted(false)
     }, [deleted]);
 
-  const getApiViewPeminjaman = async () => {
-    const result = await axios.get(`${url}/v1/api/peminjaman`);
-    console.log(result);
-    setDetailPeminjaman(result.data);
-  };
+    const getApiViewPeminjaman = async () => {
+        const result = await axios.get(`${url}/v1/api/peminjaman`);
+        console.log(result);
+        setDetailPeminjaman(result.data);
+    };
 
+    const approvePeminjaman = (idPeminjaman) => {
+        axios
+          .post(`${url}/v1/api/approve-peminjaman/${idPeminjaman}`)
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+    };
+
+    const rejectPeminjaman = (idPeminjaman) => {
+        axios
+          .post(`${url}/v1/api/reject-peminjaman/${idPeminjaman}`)
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+    };
+    
     const deletePeminjaman = (idPeminjaman) => {
         axios
           .post(`${url}/v1/api/delete-peminjaman/${idPeminjaman}`)
@@ -32,7 +52,7 @@ const Peminjaman = () => {
             setModalConfirm(false);
           })
           .catch((err) => console.log(err));
-      };
+    };
 
     console.log(detailPeminjaman);
 
@@ -73,24 +93,23 @@ const Peminjaman = () => {
                     </div>
                 </div>
 
-
-                <div class="container pt-3 pb-3 mx-auto px-4 md:px-6 lg:px-5">
-                        <section class="mb-20 text-gray-800">
-                        <div class="block rounded-lg shadow-lg bg-white">
-                            <div class="flex flex-col">
-                                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                    <div class="inline-block min-w-full sm:px-6 lg:px-8">
-                                        <div class="overflow-hidden">
-                                            <table class="min-w-full mb-0">
-                                            <thead class="border-b rounded-t-lg text-center">
-                                                    <tr class="border-b bg-gray-50">
-                                                        <th scope="col" class="rounded-tl-lg text-sm font-medium px-6 py-4">No</th>
-                                                        <th scope="col" class="text-sm font-medium px-6 py-4">Tanggal Peminjaman</th>
-                                                        <th scope="col" class="text-sm font-medium px-6 py-4">Tanggal Pengembalian</th>
-                                                        <th scope="col" class="text-sm font-medium px-6 py-4">Nama</th>
-                                                        <th scope="col" class="text-sm font-medium px-6 py-4">Buku</th>
-                                                        <th scope="col" class="text-sm font-medium px-6 py-4">Status</th>
-                                                        <th scope="col" class="rounded-tr-lg text-sm font-medium px-6 py-4">Action</th>
+                <div className="container pt-3 pb-3 mx-auto px-4 md:px-6 lg:px-5">
+                        <section className="mb-20 text-gray-800">
+                        <div className="block rounded-lg shadow-lg bg-white">
+                            <div className="flex flex-col">
+                                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                    <div className="inline-block min-w-full sm:px-6 lg:px-8">
+                                        <div className="overflow-hidden">
+                                            <table className="min-w-full mb-0">
+                                            <thead className="border-b rounded-t-lg text-center">
+                                                    <tr className="border-b bg-gray-50">
+                                                        <th scope="col" className="rounded-tl-lg text-sm font-medium px-6 py-4">No</th>
+                                                        <th scope="col" className="text-sm font-medium px-6 py-4">Tanggal Peminjaman</th>
+                                                        <th scope="col" className="text-sm font-medium px-6 py-4">Tanggal Pengembalian</th>
+                                                        <th scope="col" className="text-sm font-medium px-6 py-4">Nama</th>
+                                                        <th scope="col" className="text-sm font-medium px-6 py-4">Buku</th>
+                                                        <th scope="col" className="text-sm font-medium px-6 py-4">Status</th>
+                                                        <th scope="col" className="rounded-tr-lg text-sm font-medium px-6 py-4">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -100,35 +119,41 @@ const Peminjaman = () => {
                                                     <td className="px-6 py-4 text-sm text-center font-medium text-gray-800 whitespace-nowrap">
                                                             {index + 1}
                                                         </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                             {item.tanggalPeminjaman.split("T")[0]}
                                                         </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                             {item.tanggalPengembalian.split("T")[0]}
                                                         </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                             {item.anggota.name}
                                                         </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                             {item.book.title}
                                                         </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                            {item.status}
                                                         </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-right">
+                                                    <td className="text-sm font-normal text-center items-center align-center px-6 py-4 whitespace-nowrap text-right">
+                                                            {item.status === "belum dikonfirmasi" ? (
+                                                                <>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => approvePeminjaman(item._id)}
+                                                                        className="text-white bg-green-700 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                                        <FaCheck />
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => rejectPeminjaman(item._id)}
+                                                                        className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
+                                                                        <ImCross />
+                                                                    </button>
+                                                                </>
+                                                            ) : ""}
                                                             <button
                                                                 type="button"
-                                                                className="text-white bg-green-700 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                                <FaCheck />
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
-                                                                <ImCross />
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                            onClick={() => setModalConfirm(true)}
+                                                                onClick={() => setModalConfirm(true)}
                                                                 className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                                                 <FaTrashAlt />
                                                             </button>
@@ -139,7 +164,7 @@ const Peminjaman = () => {
                                                 role="alert"
                                             >
                                                 <span className="font-medium">Apakah Anda yakin ingin menghapus peminjaman ini?</span>
-                                                <div class="my-3">
+                                                <div className="my-3">
                                                     <button
                                                         type="button"
                                                             onClick={() => deletePeminjaman(item._id)}
@@ -156,13 +181,11 @@ const Peminjaman = () => {
                                             </div>
                                                 ) : "" }
                                                 </tr>
-
                                                 
                                                 )
                                             )}
                                             </tbody>
                                         </table>
-                                        
                                         
                                         </div>
                                     </div>
@@ -172,8 +195,6 @@ const Peminjaman = () => {
                         </section>
                     </div>
                     
-        
-            
         </div>
     </div>
   );

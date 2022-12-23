@@ -22,6 +22,16 @@ const Pengembalian = () => {
         setDetailPengembalian(result.data);
     };
 
+    const approvePengembalian = (idPengembalian) => {
+        axios
+          .post(`${url}/v1/api/approve-pengembalian/${idPengembalian}`)
+          .then((res) => {
+            console.log(res);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+    };
+
     const deletePengembalian = (idPengembalian) => {
         axios
           .post(`${url}/v1/api/delete-pengembalian/${idPengembalian}`)
@@ -33,9 +43,6 @@ const Pengembalian = () => {
           .catch((err) => console.log(err));
       };
 
-      const date = (tanggal) => {
-        return new Date(tanggal)
-      }
     console.log(detailPengembalian);
 
     return (
@@ -73,24 +80,24 @@ const Pengembalian = () => {
                     </div>
                 </div>
 
-                <div class="container pt-3 pb-5 mx-auto px-4 md:px-6 lg:px-2">
-                    <section class="mb-20 text-gray-800">
-                    <div class="block rounded-lg shadow-lg bg-white">
-                        <div class="flex flex-col">
-                            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div class="inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div class="overflow-hidden">
-                                        <table class="min-w-full mb-0">
-                                            <thead class="border-b rounded-t-lg text-left text-center">
-                                                <tr class="border-b bg-gray-50">
-                                                    <th scope="col" class="rounded-tl-lg text-sm font-medium px-6 py-4">No</th>
-                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Tanggal Peminjaman</th>
-                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Tanggal Pengembalian</th>
-                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Nama</th>
-                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Buku</th>
-                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Status</th>
-                                                    <th scope="col" class="text-sm font-medium px-6 py-4">Waktu Pengembalian</th>
-                                                    <th scope="col" class="rounded-tr-lg text-sm font-medium px-6 py-4">Action</th>
+                <div className="container pt-3 pb-5 mx-auto px-4 md:px-6 lg:px-2">
+                    <section className="mb-20 text-gray-800">
+                    <div className="block rounded-lg shadow-lg bg-white">
+                        <div className="flex flex-col">
+                            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="inline-block min-w-full sm:px-6 lg:px-8">
+                                    <div className="overflow-hidden">
+                                        <table className="min-w-full mb-0">
+                                            <thead className="border-b rounded-t-lg text-left text-center">
+                                                <tr className="border-b bg-gray-50">
+                                                    <th scope="col" className="rounded-tl-lg text-sm font-medium px-6 py-4">No</th>
+                                                    <th scope="col" className="text-sm font-medium px-6 py-4">Tanggal Peminjaman</th>
+                                                    <th scope="col" className="text-sm font-medium px-6 py-4">Tanggal Pengembalian</th>
+                                                    <th scope="col" className="text-sm font-medium px-6 py-4">Nama</th>
+                                                    <th scope="col" className="text-sm font-medium px-6 py-4">Buku</th>
+                                                    <th scope="col" className="text-sm font-medium px-6 py-4">Status</th>
+                                                    <th scope="col" className="text-sm font-medium px-6 py-4">Waktu Pengembalian</th>
+                                                    <th scope="col" className="rounded-tr-lg text-sm font-medium px-6 py-4">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -100,44 +107,44 @@ const Pengembalian = () => {
                                                     <td className="px-6 py-4 text-sm text-center font-medium text-gray-800 whitespace-nowrap">
                                                         {index + 1}
                                                     </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.tanggalPeminjaman.split("T")[0]}
                                                     </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.tanggalPengembalian.split("T")[0]}
                                                     </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.anggota.name}
                                                     </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.book.title}
                                                     </td>
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.status}
                                                     </td>
                                                     {
                                                         item.waktuDikembalikan === null ? (
-                                                    <td class="text-sm text-center font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm text-center font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         -----------
                                                     </td>
                                                         ) : (
-                                                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                                    <td className="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
                                                         {item.waktuDikembalikan.split("T")[0]} {"/ "}
                                                         {item.waktuDikembalikan.split("T")[1].split('.')[0]}
                                                     </td>
                                                         )
                                                     }
-                                                    <td class="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-right">
-                                                        <button
-                                                            type="button"
-                                                            className="text-white bg-green-700 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                                            <FaCheck />
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
-                                                            <ImCross />
-                                                        </button>
+                                                    <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-right">
+                                                        {item.status === "belum dikembalikan" ? (
+                                                              <>
+                                                                <button
+                                                                type="button"
+                                                                onClick={() => approvePengembalian(item._id)}
+                                                                className="text-white bg-green-700 hover:bg-green-900 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                                                <FaCheck />
+                                                                </button>
+                                                              </>
+                                                        ) : ""}
                                                         <button
                                                             type="button"
                                                             onClick={() => setModalConfirm(true)}
@@ -150,7 +157,7 @@ const Pengembalian = () => {
                                                     className="mx-auto fixed w-[30%] h-[15%] inset-0 text-center p-4 mb-4 text-sm text-gray-700 bg-gray-300 rounded-b-lg dark:bg-gray-700 dark:text-gray-300"
                                                     role="alert"
                                                 >
-                                                    <span className="font-medium">Apakah Anda yakin ingin menghapus peminjaman ini?</span>
+                                                    <span className="font-medium">Apakah Anda yakin ingin menghapus pengembalian ini?</span>
                                                     <div class="my-3">
                                                         <button
                                                             type="button"
@@ -168,8 +175,7 @@ const Pengembalian = () => {
                                                     </div>
                                                 ) : "" }
                                                 </tr>
-
-                                                
+                   
                                                 )
                                             )}
                                             </tbody>
