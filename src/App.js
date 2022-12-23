@@ -8,7 +8,12 @@ import Login from "./pages/Login";
 import Peminjaman from "./pages/Peminjaman";
 import TambahBuku from "./pages/TambahBuku";
 import AnggotaPerpustakaan from "./pages/AnggotaPerpustakaan";
-import JenisKategori from "./pages/JenisKategori";
+import ViewJenis from "./pages/ViewJenis";
+import ViewKategori from "./pages/ViewKategori";
+import TambahJenisBuku from "./pages/TambahJenisBuku";
+import EditJenisBuku from "./pages/EditJenis";
+import TambahKategoriBuku from "./pages/TambahKategori";
+import EditKategoriBuku from "./pages/EditKategori";
 
 const App = () => {
   const navigate = useNavigate();
@@ -26,13 +31,25 @@ const App = () => {
       <Route path="/peminjaman" element={<Peminjaman />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/anggota" element={<AnggotaPerpustakaan/>} />
-      <Route path="/jenis" element={<JenisKategori/>} />
 
       {/* Rute ke Pengolahan Buku */}
       <Route path="/book" element={<Book />} />
       <Route path="/add-book" element={<TambahBuku />} />
       <Route path="/detail-buku/:idBuku" element={<DetailBuku />} />
       <Route path="/edit-buku/:idBuku" element={<EditBuku />} />
+
+      {/* Rute ke pengolahan jenis*/}
+      <Route path="/jenis" element={<ViewJenis/>} />
+      <Route path="/add-jenis" element={<TambahJenisBuku/>} />
+      <Route path="/edit-jenis/:id" element={<EditJenisBuku/>} />
+
+
+      {/* Rute ke pengolahan kategori*/}
+      <Route path="/kategori" element={<ViewKategori/>} />
+      <Route path="/add-kategori" element={<TambahKategoriBuku/>} />
+      <Route path="/edit-kategori/:id" element={<EditKategoriBuku/>} />
+      
+
     </Routes>
   );
 };
