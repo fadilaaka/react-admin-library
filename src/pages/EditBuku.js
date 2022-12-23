@@ -19,7 +19,8 @@ const EditBuku = () => {
   const [file, setFile] = useState();
   const [status, setStatus] = useState();
 
-  const url = "http://localhost:5000";
+  // const url = "http://localhost:5000";
+  const url = "https://incredible-complete-soybean.glitch.me";
 
   useEffect(() => {
     getAPIJenisKategori();
