@@ -9,8 +9,8 @@ const Peminjaman = () => {
   const [deleted, setDeleted] = useState();
   const [modalConfirm, setModalConfirm] = useState(false);
 
-  const url = "http://localhost:5000";
-  // const url = "https://incredible-complete-soybean.glitch.me";
+  // const url = "http://localhost:5000";
+  const url = "https://incredible-complete-soybean.glitch.me";
 
   useEffect(() => {
     getApiViewPeminjaman();
