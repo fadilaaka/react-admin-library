@@ -15,6 +15,7 @@ import TambahJenisBuku from "./pages/TambahJenisBuku";
 import EditJenisBuku from "./pages/EditJenis";
 import TambahKategoriBuku from "./pages/TambahKategori";
 import EditKategoriBuku from "./pages/EditKategori";
+import EditAnggotaPerpustakaan from "./pages/EditAnggotaPerpustakaan";
 
 const App = () => {
   const navigate = useNavigate();
@@ -32,7 +33,11 @@ const App = () => {
       <Route path="/peminjaman" element={<Peminjaman />} />
       <Route path="/pengembalian" element={<Pengembalian />} />
       <Route path="/dashboard" element={<Dashboard />} />
+
+      
+      {/* Rute ke anggota*/}
       <Route path="/anggota" element={<AnggotaPerpustakaan/>} />
+      <Route path="/edit-anggota/:idAnggota" element={<EditAnggotaPerpustakaan/>} />
 
       {/* Rute ke Pengolahan Buku */}
       <Route path="/book" element={<Book />} />

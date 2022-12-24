@@ -56,20 +56,20 @@ const ViewKategori = () => {
           </button>
         </Link>
 
-        <div class="p-1.5 w-full inline-block align-middle">
-          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="p-1.5 w-full inline-block align-middle">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   No.
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   Kategori Buku
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   Jenis Buku
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                   Action
                 </th>
               </tr>
@@ -82,13 +82,20 @@ const ViewKategori = () => {
                     <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                       {index + 1}
                     </td>
-                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                    <td className="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
                       {item.title}
                     </td>
-                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
-                      {item.idJenis.title}
-                    </td>
-                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-right">
+                    {item.idJenis !== null ? (
+                      <td className="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                        {item.idJenis.title}
+                      </td>
+                    ) : (
+                      <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                        ----------
+                      </td>
+                    )}
+
+                    <td className="text-sm font-normal px-6 py-4 whitespace-nowrap text-right">
                       <Link to={`/edit-kategori/${item._id}`}>
                         <button
                           type="button"
@@ -113,7 +120,7 @@ const ViewKategori = () => {
                         <span className="font-medium">
                           Apakah Anda yakin ingin menghapus kategori ini?
                         </span>
-                        <div class="my-3">
+                        <div className="my-3">
                           <button
                             type="button"
                             onClick={() => deleteKategori(item._id)}

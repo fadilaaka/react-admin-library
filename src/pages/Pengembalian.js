@@ -223,7 +223,7 @@ const Pengembalian = () => {
                                         Apakah Anda yakin ingin menghapus
                                         pengembalian ini?
                                       </span>
-                                      <div class="my-3">
+                                      <div className="my-3">
                                         <button
                                           type="button"
                                           onClick={() =>

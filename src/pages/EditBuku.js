@@ -243,10 +243,10 @@ const EditBuku = () => {
         </form>
         {status === 201 ? (
           <div
-            class="mx-auto fixed w-[25%] h-[10%] inset-0 flex items-center p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+            className="mx-auto fixed w-[25%] h-[10%] inset-0 flex items-center p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
             role="alert"
           >
-            <span class="font-medium">Success edit buku</span>
+            <span className="font-medium">Success edit buku</span>
           </div>
         ) : (
           ""

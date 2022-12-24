@@ -177,7 +177,7 @@ const Book = () => {
                                   Apakah Anda yakin ingin menghapus peminjaman
                                   ini?
                                 </span>
-                                <div class="my-3">
+                                <div className="my-3">
                                   <button
                                     type="button"
                                     onClick={() => deleteBook(item._id)}

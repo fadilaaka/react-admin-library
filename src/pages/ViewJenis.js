@@ -80,10 +80,10 @@ const ViewJenis = () => {
                     <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
                       {index + 1}
                     </td>
-                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                    <td className="text-sm font-normal px-6 py-4 whitespace-nowrap text-left text-gray-500">
                       {item.title}
                     </td>
-                    <td class="text-sm font-normal px-6 py-4 whitespace-nowrap text-right">
+                    <td className="text-sm font-normal px-6 py-4 whitespace-nowrap text-right">
                       <Link to={`/edit-jenis/${item._id}`}>
                         <button
                           type="button"
@@ -109,7 +109,7 @@ const ViewJenis = () => {
                           <span className="font-medium">
                             Apakah Anda yakin ingin menghapus jenis ini?
                           </span>
-                          <div class="my-3">
+                          <div className="my-3">
                             <button
                               type="button"
                               onClick={() => deleteJenis(item._id)}
