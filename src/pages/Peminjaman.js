@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaCheck, FaTrashAlt, FaRegCalendarAlt } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import Sidebar from "../components/Sidebar";
+import Modal from "../components/Modal";
 
 const Peminjaman = () => {
   const [detailPeminjaman, setDetailPeminjaman] = useState();
@@ -55,6 +56,18 @@ const Peminjaman = () => {
   };
 
   console.log(detailPeminjaman);
+
+  const [selectedId, setSelectedId] = useState();
+  const [selectedTitle, setSelectedTitle] = useState();
+  const openModal = (id, title) => {
+    setSelectedId(id);
+    setSelectedTitle(title);
+    setModalConfirm(true);
+  };
+
+  const closeModal = () => {
+    setModalConfirm(false);
+  };
 
   return (
     <div className="flex bg-slate-800">
@@ -153,34 +166,34 @@ const Peminjaman = () => {
                                 <td className="px-6 py-4 text-sm text-center font-medium text-gray-800 whitespace-nowrap">
                                   {index + 1}
                                 </td>
-                                <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                   {item.tanggalPeminjaman.split("T")[0]}
                                 </td>
-                                <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                   {item.tanggalPengembalian.split("T")[0]}
                                 </td>
                                 {item.anggota !== null ? (
-                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                     {item.anggota.name}
                                   </td>
                                 ) : (
-                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                     ----------
                                   </td>
                                 )}
                                 {item.book !== null ? (
-                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                     {item.book.title}
                                   </td>
                                 ) : (
-                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                  <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                     ----------
                                   </td>
                                 )}
-                                <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                                <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                                   {item.status}
                                 </td>
-                                <td className="text-sm font-normal text-center items-center align-center px-6 py-4 whitespace-nowrap text-right">
+                                <td className="text-sm font-normal text-center items-center align-center px-6 py-4 whitespace-nowrap">
                                   {item.status === "belum dikonfirmasi" ? (
                                     <>
                                       <button
@@ -207,43 +220,24 @@ const Peminjaman = () => {
                                   )}
                                   <button
                                     type="button"
-                                    onClick={() => setModalConfirm(true)}
+                                    onClick={() =>
+                                      openModal(
+                                        item._id,
+                                        item.tanggalPeminjaman.split("T")[0]
+                                      )
+                                    }
                                     className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                   >
                                     <FaTrashAlt />
                                   </button>
                                 </td>
-                                {modalConfirm == true ? (
-                                  <div
-                                    className="mx-auto fixed w-[30%] h-[15%] inset-0 text-center p-4 mb-4 text-sm text-gray-700 bg-gray-300 rounded-b-lg dark:bg-gray-700 dark:text-gray-300"
-                                    role="alert"
-                                  >
-                                    <span className="font-medium">
-                                      Apakah Anda yakin ingin menghapus
-                                      peminjaman ini?
-                                    </span>
-                                    <div className="my-3">
-                                      <button
-                                        type="button"
-                                        onClick={() =>
-                                          deletePeminjaman(item._id)
-                                        }
-                                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                                      >
-                                        Ya
-                                      </button>
-                                      <button
-                                        type="button"
-                                        onClick={() => setModalConfirm(false)}
-                                        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                      >
-                                        Tidak
-                                      </button>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  ""
-                                )}
+                                <Modal
+                                  modal={modalConfirm}
+                                  title={selectedTitle}
+                                  id={selectedId}
+                                  onClose={closeModal}
+                                  onDelete={deletePeminjaman}
+                                />
                               </tr>
                             ))}
                         </tbody>

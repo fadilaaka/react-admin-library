@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Tabs from "../components/Tabs";
 import axios from "axios";
 import { FaPenSquare, FaTrashAlt } from "react-icons/fa";
+import Modal from "../components/Modal";
 
 const ViewKategori = () => {
   const [dataKategori, setDataKategori] = useState([]);
@@ -39,6 +40,18 @@ const ViewKategori = () => {
         setStatus(res.status);
       })
       .catch((err) => console.log(err));
+  };
+
+  const [selectedId, setSelectedId] = useState();
+  const [selectedTitle, setSelectedTitle] = useState();
+  const openModal = (id, title) => {
+    setSelectedId(id);
+    setSelectedTitle(title);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
   };
 
   return (
@@ -90,7 +103,7 @@ const ViewKategori = () => {
                         {item.idJenis.title}
                       </td>
                     ) : (
-                      <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-left text-gray-500">
+                      <td className="text-sm font-normal text-center px-6 py-4 whitespace-nowrap text-gray-500">
                         ----------
                       </td>
                     )}
@@ -106,38 +119,19 @@ const ViewKategori = () => {
                       </Link>
                       <button
                         type="button"
-                        onClick={() => setModal(true)}
+                        onClick={() => openModal(item._id, item.title)}
                         className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-2.5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                       >
                         <FaTrashAlt />
                       </button>
                     </td>
-                    {modal && (
-                      <div
-                        className="mx-auto fixed w-[30%] h-[15%] inset-0 items-center p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300"
-                        role="alert"
-                      >
-                        <span className="font-medium">
-                          Apakah Anda yakin ingin menghapus kategori ini?
-                        </span>
-                        <div className="my-3">
-                          <button
-                            type="button"
-                            onClick={() => deleteKategori(item._id)}
-                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                          >
-                            Ya
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setModal(false)}
-                            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                          >
-                            Tidak
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                    <Modal
+                      modal={modal}
+                      title={selectedTitle}
+                      id={selectedId}
+                      onClose={closeModal}
+                      onDelete={deleteKategori}
+                    />
                   </tr>
                 ))}
             </tbody>

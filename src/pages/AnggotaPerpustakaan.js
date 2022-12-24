@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaPenSquare, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
+import Modal from "../components/Modal";
 import Sidebar from "../components/Sidebar";
 
 const AnggotaPerpustakaan = () => {
@@ -27,7 +28,7 @@ const AnggotaPerpustakaan = () => {
     setLoading(false);
   };
 
-  const deleteBook = (idAnggota) => {
+  const deleteAnggota = (idAnggota) => {
     axios
       .post(`${url}/v1/api/delete-anggota-perpus/${idAnggota}`)
       .then((res) => {
@@ -36,6 +37,18 @@ const AnggotaPerpustakaan = () => {
         setModalConfirmDelete(false);
       })
       .catch((err) => console.log(err));
+  };
+
+  const [selectedId, setSelectedId] = useState();
+  const [selectedTitle, setSelectedTitle] = useState();
+  const openModal = (id, title) => {
+    setSelectedId(id);
+    setSelectedTitle(title);
+    setModalConfirmDelete(true);
+  };
+
+  const closeModal = () => {
+    setModalConfirmDelete(false);
   };
 
   return (
@@ -117,37 +130,18 @@ const AnggotaPerpustakaan = () => {
                       </Link>
                       <button
                         type="button"
-                        onClick={() => setModalConfirmDelete(true)}
+                        onClick={() => openModal(item._id, item.name)}
                         className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                       >
                         <FaTrashAlt />
                       </button>
-                      {modalConfirmDelete && (
-                        <div
-                          className="mx-auto fixed w-[30%] h-[15%] inset-0 items-center p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300"
-                          role="alert"
-                        >
-                          <span className="font-medium">
-                            Apakah Anda yakin ingin menghapus peminjaman ini?
-                          </span>
-                          <div className="my-3">
-                            <button
-                              type="button"
-                              onClick={() => deleteBook(item._id)}
-                              className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                            >
-                              Ya
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setModalConfirmDelete(false)}
-                              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm w-1/5 px-1.5 py-1.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                            >
-                              Tidak
-                            </button>
-                          </div>
-                        </div>
-                      )}
+                      <Modal
+                        modal={modalConfirmDelete}
+                        title={selectedTitle}
+                        id={selectedId}
+                        onClose={closeModal}
+                        onDelete={deleteAnggota}
+                      />
                     </td>
                   </tr>
                 ))
