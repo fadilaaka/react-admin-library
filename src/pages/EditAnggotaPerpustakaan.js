@@ -12,8 +12,8 @@ const EditAnggotaPerpustakaan = () => {
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState();
 
-  const url = "http://localhost:5000";
-  //   const url = "https://incredible-complete-soybean.glitch.me";
+  // const url = "http://localhost:5000";
+  const url = "https://incredible-complete-soybean.glitch.me";
 
   useEffect(() => {
     getAPIDetailAnggota();
